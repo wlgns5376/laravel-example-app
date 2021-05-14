@@ -1,0 +1,13 @@
+{
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "laravel.test",
+    "workspaceFolder": "/var/www/html",
+    "remoteUser": "sail",
+    "settings": {
+        "terminal.integrated.profile.linux": "/bin/bash",
+    },
+    "extensions": [
+        "felixfbecker.php-debug",
+        "felixfbecker.php-intellisense",
+    ]
+}
