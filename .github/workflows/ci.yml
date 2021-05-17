@@ -23,7 +23,7 @@ jobs:
         run: cp .env.example.sail .env
 
       - name: Sail build
-        run: vendor/bin/sail up -d
+        run: ./vendor/bin/sail up -d
 
       - name: Sail commend test
-        run: vendor/bin/sail artisan --version
+        run: ./vendor/bin/sail artisan --version
