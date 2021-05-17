@@ -1,0 +1,17 @@
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+    laravel.test:
+        build:
+            context: .devcontainer/app
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP:-1000}'
+        image: laravel.test
+        environment:
+            WWWUSER: '${WWWUSER:-1000}'
+        volumes:
+            - 'vs-code:/home/sail/.vscode-server'
+volumes:
+    vs-code:
+        driver: local

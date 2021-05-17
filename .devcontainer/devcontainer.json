@@ -1,5 +1,5 @@
 {
-    "dockerComposeFile": "docker-compose.yml",
+    "dockerComposeFile": ["../docker-compose.yml", "docker-compose.extend.yml"],
     "service": "laravel.test",
     "workspaceFolder": "/var/www/html",
     "remoteUser": "sail",
@@ -9,5 +9,6 @@
     "extensions": [
         "felixfbecker.php-debug",
         "felixfbecker.php-intellisense",
+        "octref.vetur",
     ]
 }
