@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
+        with:
+          php-version: '8.0'
+      
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Copy .env
+        run: cp .env.example.sail .env
+
+      - name: Sail build
+        run: vendor/bin/sail up -d
+
+      - name: Sail commend test
+        run: vendor/bin/sail artisan --version
