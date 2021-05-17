@@ -17,3 +17,7 @@ cp -rf .env.example.sail .env
 **VS Code Remote container build**
 
 VS Code - 명령팔레트(`F1`) - `Remote-Containers: Open Folder in Container`
+
+
+
+[VS Code devcontainer로 laravel 개발환경 구성하기](https://velog.io/@wlgns5376/VS-Code-devcontainer-laravel-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1)
