@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.3, 7.4, 8.0]
+        php: [8.0]
         laravel: [^8.0]
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
@@ -20,7 +20,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: test
+          MYSQL_DATABASE: example_app
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -52,4 +52,4 @@ jobs:
         run: php artisan storage:link
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/phpunit
+        run: php artisan test
