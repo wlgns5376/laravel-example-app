@@ -48,5 +48,8 @@ jobs:
       - name: Generate KEY
         run: php artisan key:generate
 
+      - name: Create symbolic storage link
+        run: php artisan storage:link
+
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
