@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\Permission;
 
-class AdminUserSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,13 +14,11 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        User::insert([
+        Permission::insert([
             [
                 'id' => 1,
-                'name' => 'Admin',
-                'email' => 'admin@admin.com',
-                'password' => bcrypt('adminpass'),
-            ]
+                'name' => 'dashboard_access'
+            ],
         ]);
     }
 }
