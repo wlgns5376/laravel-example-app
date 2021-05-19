@@ -12,7 +12,7 @@ composer install
 ```
 **환경설정 파일**
 ```sh
-cp -rf .env.example.sail .env
+php -r "file_exists('.env') || copy('.env.sail', '.env');"
 ```
 **VS Code Remote container build**
 
