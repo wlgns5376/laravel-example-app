@@ -1,0 +1,16 @@
+/.github
+/.git
+/.devcontainer
+/.vscode
+/vendor
+/node_modules
+/docker
+/.env
+/.env.sail
+Dockerfile
+Dockerfile.*
+docker-composer.yml
+storage/framework/cache/**
+storage/framework/sessions/**
+storage/framework/views/**
+storage/logs/**
