@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 
 LABEL maintainer="Ji hoon Kang"
 
+ENV APP_DEBUG false
 ENV APP_HOME /var/www/html
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=UTC
@@ -25,7 +26,7 @@ RUN apt-get update \
        php8.0-intl php8.0-readline \
        php8.0-msgpack php8.0-igbinary php8.0-ldap \
        php8.0-redis \
-    && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
+    && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/local/bin/ --filename=composer \
     && curl -sL https://deb.nodesource.com/setup_15.x | bash - \
     && apt-get install -y nodejs \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -47,6 +48,8 @@ COPY . ${APP_HOME}
 
 RUN chown -R www-data:www-data ${APP_HOME}
 
+WORKDIR ${APP_HOME}
+
 # Install PHP dependencies
 RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
@@ -54,14 +57,6 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev --no-script
 RUN npm install \
     && npm run prod \
     && rm -rf node_modules
-
-# Artisan
-RUN cd ${APP_HOME} \
-    && php artisan storage:link \
-    && php artisan config:cache \
-    && php artisan route:cache
-
-WORKDIR ${APP_HOME}
 
 EXPOSE 9000
 
