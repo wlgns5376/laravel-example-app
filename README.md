@@ -14,6 +14,12 @@ composer install
 ```sh
 php -r "file_exists('.env') || copy('.env.sail', '.env');"
 ```
+**NPM 의존성패키지 설치**
+```sh
+npm install
+npm run dev
+```
+
 **VS Code Remote container build**
 
 VS Code - 명령팔레트(`F1`) - `Remote-Containers: Open Folder in Container`
