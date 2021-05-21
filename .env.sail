@@ -8,7 +8,7 @@ LOG_CHANNEL=stack
 LOG_LEVEL=debug
 
 DB_CONNECTION=mysql
-DB_HOST=mysql
+DB_HOST=mariadb
 DB_PORT=3306
 DB_DATABASE=example_app
 DB_USERNAME=sail

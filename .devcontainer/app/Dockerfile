@@ -35,7 +35,7 @@ RUN apt-get update \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
     && apt-get update \
     && apt-get install -y yarn \
-    && apt-get install -y mysql-client \
+    && apt-get install -y mariadb-client \
     && apt-get install -y postgresql-client \
     && apt-get -y autoremove \
     && apt-get clean \
