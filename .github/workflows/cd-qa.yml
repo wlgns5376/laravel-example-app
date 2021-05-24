@@ -19,10 +19,10 @@ jobs:
           echo VERSION=$VERSION
           echo "::set-output name=version::$VERSION"
 
-      - name: Login to GitHub Packages Docker Registry
+      - name: Login to GitHub Packages Container Registry
         uses: docker/login-action@v1
         with:
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -31,4 +31,4 @@ jobs:
         with:
           push: true
           tags: |
-            docker.pkg.github.com/${{ github.repository }}/octo-image:${{ steps.image.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/example-app:${{ steps.image.outputs.version }}
