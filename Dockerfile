@@ -1,4 +1,4 @@
-FROM renokico/laravel-base:latest-8.0-fpm-alpine
+FROM wlgns5376/laravel8-base:php8.0-fpm
 
 ENV APP_HOME /var/www/html
 
