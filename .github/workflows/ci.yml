@@ -1,5 +1,6 @@
 name: CI
 
+# pull request가 생성되면 작동
 on:
   pull_request:
 
