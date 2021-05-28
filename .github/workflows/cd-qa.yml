@@ -11,9 +11,50 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Env test
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub Packages Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+    
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Checkout kustomize repository
+        uses: actions/checkout@v2
+        with:
+          repository: wlgns5376/example-app-kustomize
+          token: ${{ secrets.ACTION_TOKEN }}
+          path: example-app-kustomize
+
+      - name: Update Kubernetes resources
         run: |
-          echo ${{ env.IMAGE_NAME }}
-          echo ${{ env.VERSION }}
+          cd example-app-kustomize/overlays/dev/
+          kustomize edit set image app=${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          cat kustomization.yaml
+
+      - name: Commit files
+        run: |
+          cd example-app-kustomize
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          git commit -am "Update image tag"
+          git push -u origin main
