@@ -5,6 +5,7 @@
     "remoteUser": "sail",
     "settings": {
         "terminal.integrated.profile.linux": "/bin/bash",
+        "php.executablePath": "/usr/bin/php",
     },
     "extensions": [
         "felixfbecker.php-debug",
