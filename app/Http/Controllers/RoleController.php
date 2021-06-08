@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Role;
@@ -14,8 +15,8 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $roles = Role::all();
+    {   
+        $roles = Role::with('permissions')->get();
         return Inertia::render('Roles/Index', [
             'roles' => $roles
         ]);
@@ -54,12 +55,14 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  Int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show($id)
     {
-        return Inertia::render('Roles/Edit', compact('role'));
+        $permissions = Permission::all();
+        $role = Role::with('permissions')->find($id);
+        return Inertia::render('Roles/Edit', compact('role', 'permissions'));
     }
 
     /**
@@ -70,7 +73,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return Inertia::render('Roles/Edit', compact('role'));
+        return $this->show($role);
     }
 
     /**
@@ -88,8 +91,10 @@ class RoleController extends Controller
         ]);
 
         $role->update($request->only(['name', 'slug']));
+        $role->permissions()->sync($request->input('permissions', []));
 
-        return back()
+        return redirect()
+                ->route('roles.show', $role->id)
                 ->with('success', 'Edit role successed!!');
     }
 

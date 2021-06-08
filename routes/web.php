@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         return Inertia::render('Dashboard');
     })->name('dashboard');
     
-    Route::resource('roles', RoleController::class)->except([
-        'edit'
-    ]);
+    Route::resource('roles', RoleController::class)->middleware('can:access_role');
+    Route::resource('permissions', PermissionController::class)->middleware('can:access_permission');
+    Route::resource('contacts', ContactController::class)->middleware('can:access_contact');
 });

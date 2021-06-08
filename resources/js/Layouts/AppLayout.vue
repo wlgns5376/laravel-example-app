@@ -17,12 +17,11 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </jet-nav-link>
-                                <jet-nav-link :href="route('roles.index')" :active="route().current('roles.index')">
-                                    Roles
-                                </jet-nav-link>
+                                <template v-for="menu in menus" :key="menu.route">
+                                    <jet-nav-link v-if="can(menu)" :href="route(menu.route)" :active="route().current(menu.route)">
+                                        {{ menu.title }}
+                                    </jet-nav-link>
+                                </template>
                             </div>
                         </div>
 
@@ -143,9 +142,11 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </jet-responsive-nav-link>
+                        <template v-for="menu in menus" :key="menu.route">
+                            <jet-responsive-nav-link v-if="can(menu)" :href="route(menu.route)" :active="route().current(menu.route)">
+                                {{ menu.title }}
+                            </jet-responsive-nav-link>
+                        </template>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -253,6 +254,28 @@
         data() {
             return {
                 showingNavigationDropdown: false,
+                menus: [
+                    {
+                        title: "Dashboard",
+                        route: "dashboard",
+                        can: 'access_dashboard'
+                    },
+                    {
+                        title: "Roles",
+                        route: "roles.index",
+                        can: 'access_role'
+                    },
+                    {
+                        title: "Permissions",
+                        route: "permissions.index",
+                        can: 'access_permission'
+                    },
+                    {
+                        title: "Contacts",
+                        route: "contacts.index",
+                        can: 'access_contact'
+                    },
+                ]
             }
         },
 
@@ -267,6 +290,14 @@
 
             logout() {
                 this.$inertia.post(route('logout'));
+            },
+
+            can(menu) {
+                if (menu.can && typeof this.$page.props.can[menu.can] !== 'undefined') {
+                    return this.$page.props.can[menu.can];
+                }
+
+                return true;
             },
         }
     }
