@@ -7,7 +7,7 @@
     </template>
 
     <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         
         <jet-validation-errors class="mb-4" />
 
@@ -19,6 +19,15 @@
           <div class="mb-4">
               <jet-label for="slug" value="Slug" />
               <jet-input id="slug" type="text" class="mt-1 block w-full" v-model="form.slug" required />
+          </div>
+          <div class="mb-4">
+            <div class="text-base font-medium text-gray-900">Permissions</div>
+            <ul>
+              <li v-for="permission in permissions" :key="permission.slug">
+                <input type="checkbox" :id="'permission_'+permission.slug" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" v-model="form.permissions" :value="permission.id" />
+                <label :for="'permission_'+permission.slug" class="ml-3 text-sm font-medium text-gray-700">{{ permission.name }}</label>
+              </li>
+            </ul>
           </div>
 
           <div class="py-4">
@@ -60,14 +69,17 @@
       role: {
         type: Object,
         default: {}
-      }
+      },
+      permissions: Array,
     },
     data() {
+      let permissions = this.role.permissions ? this.role.permissions.map(permission => permission.id) : [];
       return {
         form: useForm({
           _method: this.role.id ? "PUT" : "POST",
           name: this.role.name,
           slug: this.role.slug,
+          permissions: permissions,
         }),
       }
     },
