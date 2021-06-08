@@ -48,6 +48,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     /**
@@ -58,4 +59,22 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->slug == 'admin';
+    }
+
+    public function hasPermission($permission)
+    {
+        return $this->role
+                        ->permissions
+                            ->where('slug', $permission)
+                            ->count() > 0;
+    }
 }
