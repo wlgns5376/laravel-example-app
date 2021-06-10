@@ -67,14 +67,14 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role->slug == 'admin';
+        return $this->role?->slug == 'admin';
     }
 
     public function hasPermission($permission)
     {
         return $this->role
-                        ->permissions
-                            ->where('slug', $permission)
+                        ?->permissions
+                            ?->where('slug', $permission)
                             ->count() > 0;
     }
 }
