@@ -20,22 +20,24 @@ class AuthGates
      */
     public function handle(Request $request, Closure $next)
     {
-        $permissions = Permission::all();
-        foreach ($permissions as $permission) {
-            Gate::define($permission->slug, function ($user) use ($permission) {
-                return $user->isAdmin() || $user->hasPermission($permission->slug);
+        if ($request->user()) {
+            $permissions = Permission::all();
+            foreach ($permissions as $permission) {
+                Gate::define($permission->slug, function ($user) use ($permission) {
+                    return $user->isAdmin() || $user->hasPermission($permission->slug);
+                });
+            }
+    
+            Inertia::share('can', function() use ($request, $permissions) {
+                $user = $request->user();
+                $cans = [];
+                foreach ($permissions as $permission) {
+                    $cans[$permission->slug] = $user && $user->can($permission->slug);
+                }
+                
+                return $cans;
             });
         }
-
-        Inertia::share('can', function() use ($request, $permissions) {
-            $user = $request->user();
-            $cans = [];
-            foreach ($permissions as $permission) {
-                $cans[$permission->slug] = $user && $user->can($permission->slug);
-            }
-            
-            return $cans;
-        });
 
         return $next($request);
     }
