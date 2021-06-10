@@ -14,7 +14,9 @@ class AddRoleIdColumnInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('role_id');
+            $table->bigInteger('role_id')
+                    ->nullable()
+                    ->default(2); // Set default role = user
         });
     }
 

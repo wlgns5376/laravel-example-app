@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePermissionsTable extends Migration
@@ -20,6 +21,30 @@ class CreatePermissionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        $createdAt = now();
+        DB::table('permissions')->insert([
+            [
+                'name' => 'Access Dashboard',
+                'slug' => 'access_dashboard',
+                'created_at' => $createdAt
+            ],
+            [
+                'name' => 'Access Role',
+                'slug' => 'access_role',
+                'created_at' => $createdAt
+            ],
+            [
+                'name' => 'Access Permission',
+                'slug' => 'access_permission',
+                'created_at' => $createdAt
+            ],
+            [
+                'name' => 'Access Contact',
+                'slug' => 'access_contact',
+                'created_at' => $createdAt
+            ],
+        ]);
     }
 
     /**
