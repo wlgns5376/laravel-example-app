@@ -1,5 +1,5 @@
 <template>
-    <app-layout>
+    <admin-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 API Tokens
@@ -13,12 +13,12 @@
                                    :default-permissions="defaultPermissions" />
             </div>
         </div>
-    </app-layout>
+    </admin-layout>
 </template>
 
 <script>
     import ApiTokenManager from './ApiTokenManager'
-    import AppLayout from '@/Layouts/AppLayout'
+    import AdminLayout from '@/Layouts/AdminLayout'
 
     export default {
         props: [
@@ -29,7 +29,7 @@
 
         components: {
             ApiTokenManager,
-            AppLayout,
+            AdminLayout,
         },
     }
 </script>

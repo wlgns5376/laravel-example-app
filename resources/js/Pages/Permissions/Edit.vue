@@ -1,5 +1,5 @@
 <template>
-  <app-layout>
+  <admin-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Permissions
@@ -36,12 +36,12 @@
         </form>        
       </div>
     </div>
-  </app-layout>
+  </admin-layout>
 </template>
 
 <script>
   import { useForm } from '@inertiajs/inertia-vue3'
-  import AppLayout from '@/Layouts/AppLayout'
+  import AdminLayout from '@/Layouts/AdminLayout'
   import JetFormSection from '@/Jetstream/FormSection'
   import JetButton from '@/Jetstream/Button'
   import JetSecondaryButton from '@/Jetstream/SecondaryButton'
@@ -52,7 +52,7 @@
 
   export default {
     components: {
-      AppLayout,
+      AdminLayout,
       JetFormSection,
       JetLabel,
       JetInput,

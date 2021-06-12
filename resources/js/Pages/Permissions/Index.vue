@@ -1,5 +1,5 @@
 <template>
-  <app-layout>
+  <admin-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Permissions
@@ -46,18 +46,18 @@
         </div>
       </div>
     </div>
-  </app-layout>
+  </admin-layout>
 </template>
 
 <script>
     import { Inertia } from '@inertiajs/inertia'
-    import AppLayout from '@/Layouts/AppLayout'
+    import AdminLayout from '@/Layouts/AdminLayout'
     import JetButton from '@/Jetstream/Button'
     import JetDangerButton from '@/Jetstream/DangerButton'
 
     export default {
         components: {
-            AppLayout,
+            AdminLayout,
             JetButton,
             JetDangerButton,
         },
