@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\Test;
 use App\Http\Controllers\PermissionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,12 @@ Route::get('/', function () {
     return Inertia::render('Home', [
     ]);
 })->name('home');
+
+Route::get('/broadcast', function () {
+    broadcast(new Test);
+
+    return 'broadcast';
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/dashboard', function () {

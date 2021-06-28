@@ -8,6 +8,7 @@ docker
 tests
 .env
 .env.sail
+.env.testing
 Dockerfile
 Dockerfile.*
 docker-composer.yml

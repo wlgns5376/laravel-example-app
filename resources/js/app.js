@@ -7,6 +7,11 @@ import { InertiaProgress } from '@inertiajs/progress';
 
 const el = document.getElementById('app');
 
+Echo.channel('test') // 채널 이름
+   .listen('Test', (e) => { // 이벤트 이름
+   console.log(e);
+});
+
 createApp({
     render: () =>
         h(InertiaApp, {

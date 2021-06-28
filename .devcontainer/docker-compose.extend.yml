@@ -12,6 +12,8 @@ services:
             WWWUSER: '${WWWUSER:-1000}'
         volumes:
             - 'vs-code:/home/sail/.vscode-server'
+        ports:
+            - '6001:6001'
 volumes:
     vs-code:
         driver: local
